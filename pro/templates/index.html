@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h3>{{title}} is Working !</h3>
+
+{% for obj in post_list %}
+<a href='/app/{{ obj.id }}/'>{{obj.Title}}</a><br>        <!--Can be used by this way -->
+<!-- <a href='{% url "post_detail" id=obj.id %}'>{{obj.Title}}</a><br>     Can be used by url name --> 
+<!-- {% url 'post_detail' id=obj.id %}
+<a href='{{ obj.get_Absolute_url }}'>{{obj.Title}}</a><br>   Using absolute url -->
+{{obj.Content}}<br>
+{{obj.Timestamp}}<br>
+{{obj.Updated}}<br>
+{{obj.id}}<br><br>
+{% endfor %}
+
+
+</body>
+</html>

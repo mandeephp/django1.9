@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<title>Posts List</title>
+
+<h3>All {{title}}</h3>
+<div class="row">
+	{% for obj in post_list %}
+	  <div class="col-sm-6 col-md-4 col-lg-6 col-xs-2">
+	    <div class="thumbnail">
+	      {% if obj.Image %}
+	        <img src='{{ obj.Image.url }}' class="img-responsive" >
+	        {% endif %}
+	      <div class="caption">
+	      	<h3>Author {{obj.User}}</h3>
+	        <h3 >{{obj.Title}}<small>{{obj.Timestamp | timesince}}</small></h3>
+	        <p>{{obj.Content | linebreaks|truncatechars:100}}</p>
+	        <a href="/app/{{ obj.id }}/" class="btn btn-primary" role="button">View</a> 
+	        <a href="#" class="btn btn-primary" role="button">Edit Post</a> 
+	      </div>
+	    </div>
+	  </div>
+
+	  {% cycle "" "<div class='col-sm-12'> <hr/> </div> </div> <div class='row'>" %}
+	  {% endfor %}
+
+	  <div class="col-sm-6 col-sm-offset-5">
+    <span class="step-links">
+        {% if post_list.has_previous %}
+            <a href="?page={{ post_list.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+         Page {{ post_list.number }} of {{ post_list.paginator.num_pages }}
+        </span>
+
+        {% if post_list.has_next %}
+            <a href="?page={{ post_list.next_page_number }}">Next</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+
+
+{% endblock content %}
+
+
+<!--Can be used by this way -->
+<!-- <a href='{% url "post_detail" id=obj.id %}'>{{obj.Title}}</a><br>     Can be used by url name --> 
+<!-- {% url 'post_detail' id=obj.id %}
+<a href='{{ obj.get_Absolute_url }}'>{{obj.Title}}</a><br>   Using absolute url -->
